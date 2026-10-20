@@ -116,61 +116,7 @@ const TarjetaPadres = ({
         "
       />
 
-      {/* ICONO */}
-
-      <Heart
-        size={23}
-        strokeWidth={1.2}
-        className="mb-6 text-[#B89B5E]"
-      />
-
-      {/* TÍTULO */}
-
-      <h3
-        className="
-          mb-7
-          text-[11px]
-          font-semibold
-          uppercase
-          tracking-[0.18em]
-          text-[#A88A59]
-          sm:text-xs
-        "
-      >
-        {titulo}
-      </h3>
-
-      {/* NOMBRES */}
-
-      <div className="flex flex-col items-center gap-5">
-        {nombres.map((nombre, i) => (
-          <React.Fragment key={i}>
-            {i > 0 && (
-              <div
-                className="
-                  h-px
-                  w-10
-                  bg-[#DFD3BF]
-                "
-              />
-            )}
-
-            <p
-              className="
-                max-w-xs
-                font-serif
-                text-xl
-                font-normal
-                leading-relaxed
-                text-[#242424]
-                sm:text-2xl
-              "
-            >
-              {nombre}
-            </p>
-          </React.Fragment>
-        ))}
-      </div>
+      
 
       {/* DETALLE INFERIOR */}
 
