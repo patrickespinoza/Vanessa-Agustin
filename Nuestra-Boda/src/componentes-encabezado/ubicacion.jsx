@@ -20,7 +20,7 @@ const fechaCelebracion = {
 
 const evento = {
   titulo: "Nuestra celebración",
-  hora: "5:00 PM",
+  hora: "5:30 PM",
   lugar: "Salón de Eventos Temazcaltitla",
   direccion:
     "Temascaltitla 128, 56240 La Purificación Tepetitla, Méx.",
