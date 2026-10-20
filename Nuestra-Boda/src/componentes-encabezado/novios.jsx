@@ -116,7 +116,61 @@ const TarjetaPadres = ({
         "
       />
 
-      
+      {/* ICONO */}
+
+      <Heart
+        size={23}
+        strokeWidth={1.2}
+        className="mb-6 text-[#B89B5E]"
+      />
+
+      {/* TÍTULO */}
+
+      <h3
+        className="
+          mb-7
+          text-[11px]
+          font-semibold
+          uppercase
+          tracking-[0.18em]
+          text-[#A88A59]
+          sm:text-xs
+        "
+      >
+        {titulo}
+      </h3>
+
+      {/* NOMBRES */}
+
+      <div className="flex flex-col items-center gap-5">
+        {nombres.map((nombre, i) => (
+          <React.Fragment key={i}>
+            {i > 0 && (
+              <div
+                className="
+                  h-px
+                  w-10
+                  bg-[#DFD3BF]
+                "
+              />
+            )}
+
+            <p
+              className="
+                max-w-xs
+                font-serif
+                text-xl
+                font-normal
+                leading-relaxed
+                text-[#242424]
+                sm:text-2xl
+              "
+            >
+              {nombre}
+            </p>
+          </React.Fragment>
+        ))}
+      </div>
 
       {/* DETALLE INFERIOR */}
 
@@ -276,63 +330,6 @@ const Novios = () => {
 
             <div className="h-px w-10 bg-[#C5A46D]/70" />
           </div>
-
-          {/* SUBTÍTULO */}
-
-          <p
-            className="
-              text-[11px]
-              font-semibold
-              uppercase
-              tracking-[0.3em]
-              text-[#A88A59]
-              sm:text-xs
-            "
-          >
-            Nuestra boda
-          </p>
-
-          {/* NOMBRES DE LOS NOVIOS */}
-
-          <h2
-            className="
-              mt-6
-              font-serif
-              text-4xl
-              font-normal
-              leading-tight
-              text-[#242424]
-              sm:text-5xl
-              md:text-6xl
-            "
-          >
-            {informacion.novia}
-
-            <span
-              className="
-                mx-3
-                font-serif
-                italic
-                text-[#B89B5E]
-              "
-            >
-              &
-            </span>
-
-            {informacion.novio}
-          </h2>
-
-          {/* SEPARADOR */}
-
-          <div
-            className="
-              mx-auto
-              mt-8
-              h-px
-              w-20
-              bg-[#C5A46D]
-            "
-          />
 
           {/* TEXTO DE BENDICIÓN */}
 
