@@ -1,47 +1,107 @@
-import React, { useRef, useState } from 'react';
 
+import React from "react";
 
 export default function Portada() {
-  const audioRef = useRef(null);
-  const [isMuted, setIsMuted] = useState(false); 
-
-  const handlePlayMusic = () => {
-    if (audioRef.current) {
-      audioRef.current.play().catch((error) => {
-        console.error("Error al intentar reproducir el audio:", error);
-      });
-    }
-  };
-
-  const toggleMute = () => {
-    if (audioRef.current) {
-      audioRef.current.muted = !isMuted; 
-      setIsMuted(!isMuted); 
-    }
-  };
-
   return (
-    <div>
-      <section className="relative w-full h-[calc(110vh-160px)] md:h-screen flex flex-col items-center justify-center text-white">
-        <img
-          src="/portada.png"
-          alt="Fondo"
-          className="absolute w-full h-full object-cover"
+    <section
+      className="
+        relative
+        w-full
+        h-[100svh]
+        min-h-[550px]
+        overflow-hidden
+      "
+    >
+      {/* FOTOGRAFÍA DE PORTADA */}
+      <img
+        src="/portada.JPG"
+        alt="Vanessa y Agustin"
+        className="
+          absolute
+          inset-0
+          w-full
+          h-full
+          object-cover
+          object-center
+        "
+      />
+
+      {/* CONTENIDO SUPERIOR */}
+      <div
+        className="
+          absolute
+          top-0
+          left-0
+          z-10
+          w-full
+          flex
+          flex-col
+          items-center
+          text-center
+          px-5
+          pt-16
+          sm:pt-20
+          md:pt-24
+        "
+      >
+        {/* NOMBRES */}
+        <h1
+          className="
+            font-serif
+            font-normal
+            italic
+            text-white
+            text-[clamp(2.8rem,7vw,6.5rem)]
+            leading-[1.15]
+            tracking-[-0.035em]
+            drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)]
+          "
+        >
+          Vanessa
+          <span
+            className="
+              block
+              text-[0.55em]
+              font-light
+              not-italic
+              my-1
+              md:my-2
+            "
+          >
+            &amp;
+          </span>
+          Agustin
+        </h1>
+
+        {/* LÍNEA DECORATIVA */}
+        <div
+          className="
+            w-14
+            md:w-20
+            h-px
+            bg-white/80
+            mt-6
+            mb-5
+          "
         />
 
-        <div className="relative bg-opacity-50 rounded-lg w-full h-full justify-center items-center flex flex-col p-4 gap-4">
-          <h1 className="roboto-black p-12 text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-serif">
-            Nuestra Boda
-          </h1>
-          <p className="font-serif text-2xl sm:text-2xl md:text-3xl lg:text-4xl" >11 |
-             06 | 2026
-          </p>
-          <p className="font-serif text-lg sm:text-2xl md:text-3xl lg:text-4xl">Karla & Mark</p>
-        </div>
-      </section>
-    </div>
-    
+        {/* FECHA */}
+        <p
+          className="
+            font-serif
+            text-white
+            text-[20px]
+            sm:text-[22px]
+            md:text-[25px]
+            tracking-[0.3em]
+            uppercase
+            font-light
+            drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]
+          "
+        >
+          19 · 12 · 2026
+        </p>
+      </div>
+    </section>
   );
 }
-
-

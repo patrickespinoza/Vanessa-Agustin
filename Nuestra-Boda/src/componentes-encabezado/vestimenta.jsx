@@ -1,171 +1,372 @@
+
 import React from "react";
 import { motion } from "framer-motion";
+import { Snowflake } from "lucide-react";
+
+// ==========================================
+// ANIMACIONES
+// ==========================================
+
+const fadeUp = {
+  hidden: {
+    opacity: 0,
+    y: 35,
+  },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
+// ==========================================
+// COMPONENTE VESTIMENTA - WEDLY
+// ==========================================
 
 const Vestimenta = () => {
-
-  const fadeUp = {
-    hidden: {
-      opacity: 0,
-      y: 40,
-    },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 1,
-      },
-    },
-  };
-
   return (
-    <div className="w-full bg-[#F7F4ED] py-2 px-0 flex items-center justify-center overflow-hidden">
+    <section
+      id="vestimenta"
+      className="
+        relative
+        w-full
+        overflow-hidden
+        bg-white
+        px-5
+        py-20
+        sm:px-8
+        sm:py-28
+        md:py-32
+      "
+    >
+      {/* DECORACIONES DE FONDO */}
+
+      <div
+        className="
+          pointer-events-none
+          absolute
+          -left-32
+          top-20
+          h-72
+          w-72
+          rounded-full
+          border
+          border-[#C5A46D]/15
+        "
+      />
+
+      <div
+        className="
+          pointer-events-none
+          absolute
+          -right-32
+          bottom-10
+          h-72
+          w-72
+          rounded-full
+          border
+          border-[#C5A46D]/15
+        "
+      />
 
       <motion.div
         variants={fadeUp}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true }}
+        viewport={{ once: true, amount: 0.15 }}
         className="
-          relative max-w-6xl w-full
-          bg-white
-          rounded-tl-[3rem] sm:rounded-tl-[4rem]
-          rounded-br-[3rem] sm:rounded-br-[4rem]
-          rounded-tr-[1rem]
-          rounded-bl-[1rem]
-          shadow-[0_15px_50px_rgba(0,0,0,0.12)]
+          relative
+          z-10
+          mx-auto
+          grid
+          w-full
+          max-w-6xl
+          grid-cols-1
           overflow-hidden
-          grid grid-cols-1 lg:grid-cols-2
+          rounded-tl-[3.5rem]
+          rounded-br-[3.5rem]
+          rounded-tr-2xl
+          rounded-bl-2xl
+          border
+          border-[#DFD3BF]
+          bg-white
+          shadow-[0_20px_60px_rgba(36,36,36,0.07)]
+          lg:grid-cols-2
         "
       >
+        {/* ==================================
+            IMAGEN
+        ================================== */}
 
-        {/* IMAGEN */}
         <motion.div
-          initial={{ opacity: 0, x: -60 }}
+          initial={{ opacity: 0, x: -35 }}
           whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 0.9 }}
           viewport={{ once: true }}
           className="
             relative
-            h-[280px]
-            sm:h-[420px]
-            md:h-[500px]
-            lg:h-full
+            h-[300px]
             min-h-[300px]
+            overflow-hidden
+            sm:h-[420px]
+            md:h-[480px]
+            lg:h-full
           "
         >
-
           <img
-            src="/dress-code2.png"
-            alt="Vestimenta"
+            src="/Dresscode.png"
+            alt="Código de vestimenta formal elegante"
             className="
-              w-full h-full
+              h-full
+              w-full
               object-cover
               object-center
             "
           />
 
-          {/* Overlay elegante */}
-          <div className="absolute inset-0 bg-black/10"></div>
+          {/* SOMBRA SUTIL SOBRE IMAGEN */}
 
+          <div
+            className="
+              pointer-events-none
+              absolute
+              inset-0
+              bg-black/5
+            "
+          />
         </motion.div>
 
-        {/* TEXTO */}
+        {/* ==================================
+            CONTENIDO
+        ================================== */}
+
         <div
           className="
-            flex flex-col items-center justify-center
+            relative
+            flex
+            flex-col
+            items-center
+            justify-center
+            px-7
+            py-14
             text-center
-            p-8
-            sm:p-12
-            lg:p-16
+            sm:px-12
+            sm:py-16
+            lg:px-14
+            lg:py-20
           "
         >
+          {/* DETALLE SUPERIOR */}
 
-          <motion.p
-            initial={{ opacity: 0, letterSpacing: "0.5em" }}
-            whileInView={{ opacity: 1, letterSpacing: "0.2em" }}
-            transition={{ duration: 1 }}
-            viewport={{ once: true }}
+          <div
             className="
-              uppercase
-              text-[11px]
-              sm:text-sm
-              tracking-[0.2em]
-              text-[#B89B5E]
-              font-semibold
+              absolute
+              left-1/2
+              top-0
+              h-[2px]
+              w-24
+              -translate-x-1/2
+              bg-[#C5A46D]
+              lg:hidden
             "
-          >
-            Código de Vestimenta
-          </motion.p>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="
-              text-3xl
-              sm:text-4xl
-              md:text-5xl
-              lg:text-6xl
-              font-playfair
-              text-black
-              mt-5
-              leading-tight
-            "
-          >
-            Vestimenta Formal
-          </motion.h1>
-
-          <motion.div
-            initial={{ width: 0 }}
-            whileInView={{ width: "6rem" }}
-            transition={{ duration: 1, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="h-[2px] bg-[#B89B5E] mt-6"
           />
 
+          {/* SUBTÍTULO */}
+
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.6 }}
-            viewport={{ once: true }}
+            variants={fadeUp}
             className="
-              mt-6 sm:mt-8
-              text-base
-              sm:text-lg
-              md:text-xl
-              text-black/70
-              leading-relaxed
-              max-w-md
-              font-[DancingScript]
+              text-[11px]
+              font-medium
+              uppercase
+              tracking-[0.28em]
+              text-[#A88A59]
+              sm:text-xs
             "
           >
-            Queremos compartir contigo una noche elegante y especial.
-            Te invitamos a asistir con vestimenta formal para celebrar
-            juntos este momento inolvidable.
+            Código de vestimenta
           </motion.p>
 
-          {/* FRASE */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1 }}
-            viewport={{ once: true }}
+          {/* TÍTULO */}
+
+          <motion.h2
+            variants={fadeUp}
             className="
-              mt-8 sm:mt-10
-              text-[#B89B5E]
-              text-xs sm:text-sm
-              tracking-[0.2em]
-              text-center
+              mt-5
+              font-serif
+              text-4xl
+              font-normal
+              leading-tight
+              text-[#242424]
+              sm:text-5xl
+              lg:text-[3.5rem]
             "
           >
-            ✦ Elegancia • Glamour • Celebración ✦
+            Formal Elegante
+          </motion.h2>
+
+          {/* ORNAMENTO DORADO */}
+
+          <motion.div
+            variants={fadeUp}
+            className="
+              my-8
+              flex
+              items-center
+              justify-center
+              gap-3
+            "
+          >
+            <div className="h-px w-12 bg-[#C5A46D]/70" />
+
+            <div
+              className="
+                h-2
+                w-2
+                rotate-45
+                border
+                border-[#C5A46D]
+              "
+            />
+
+            <div className="h-px w-12 bg-[#C5A46D]/70" />
           </motion.div>
 
-        </div>
+          {/* DESCRIPCIÓN */}
 
+          <motion.p
+            variants={fadeUp}
+            className="
+              max-w-md
+              font-serif
+              text-base
+              leading-[1.9]
+              text-[#716B63]
+              sm:text-lg
+            "
+          >
+            Queremos compartir contigo una noche
+            elegante y especial. Te invitamos a
+            acompañarnos con vestimenta formal
+            para celebrar juntos este momento
+            inolvidable.
+          </motion.p>
+
+          {/* ==================================
+              RECOMENDACIÓN POR EL FRÍO
+          ================================== */}
+
+          <motion.div
+            variants={fadeUp}
+            className="
+              relative
+              mt-10
+              w-full
+              max-w-md
+              overflow-hidden
+              rounded-2xl
+              border
+              border-[#DFD3BF]
+              bg-[#F8F6F1]
+              px-6
+              py-8
+              sm:px-8
+            "
+          >
+            {/* LÍNEA SUPERIOR */}
+
+            <div
+              className="
+                absolute
+                left-1/2
+                top-0
+                h-[2px]
+                w-16
+                -translate-x-1/2
+                bg-[#C5A46D]
+              "
+            />
+
+            {/* ICONO */}
+
+            <div
+              className="
+                mx-auto
+                mb-5
+                flex
+                h-12
+                w-12
+                items-center
+                justify-center
+                rounded-full
+                border
+                border-[#C5A46D]/40
+                bg-white
+              "
+            >
+              <Snowflake
+                size={23}
+                strokeWidth={1.4}
+                className="text-[#B89B5E]"
+              />
+            </div>
+
+            {/* TÍTULO RECOMENDACIÓN */}
+
+            <h3
+              className="
+                font-serif
+                text-xl
+                font-normal
+                leading-snug
+                text-[#242424]
+                sm:text-2xl
+              "
+            >
+              Una recomendación
+              <br />
+              para tu comodidad
+            </h3>
+
+            {/* LÍNEA */}
+
+            <div
+              className="
+                mx-auto
+                my-5
+                h-px
+                w-12
+                bg-[#C5A46D]/70
+              "
+            />
+
+            {/* TEXTO */}
+
+            <p
+              className="
+                text-sm
+                leading-[1.9]
+                text-[#716B63]
+                sm:text-base
+              "
+            >
+              Por la temporada de invierno,
+              te recomendamos llevar un abrigo
+              o alguna prenda cálida para
+              disfrutar cómodamente de nuestra
+              celebración.
+            </p>
+          </motion.div>
+
+          {/* FRASE FINAL */}
+
+  
+        </div>
       </motion.div>
-    </div>
+    </section>
   );
 };
 
