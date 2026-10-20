@@ -1,10 +1,11 @@
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Heart,
   MessageCircle,
   Send,
+  Users,
 } from "lucide-react";
 
 // ==========================================
@@ -39,8 +40,42 @@ const fadeUp = {
 export default function ConfirmacionAsistencia() {
   const [nombre, setNombre] = useState("");
   const [asistencia, setAsistencia] = useState("");
+  const [invitados, setInvitados] = useState("");
   const [mensaje, setMensaje] = useState("");
   const [error, setError] = useState("");
+
+  // ==========================================
+  // SELECCIONAR ASISTENCIA
+  // ==========================================
+
+  const seleccionarAsistencia = (opcion) => {
+    setAsistencia(opcion);
+    setError("");
+
+    // Si no asistirá, limpiar cantidad
+    if (opcion === "No asistiré") {
+      setInvitados("");
+    }
+  };
+
+  // ==========================================
+  // CANTIDAD DE PERSONAS
+  // ==========================================
+
+  const cambiarInvitados = (e) => {
+    const valor = e.target.value;
+
+    // Permite escribir solamente números
+    // Sin establecer un límite máximo
+    const soloNumeros = valor.replace(/\D/g, "");
+
+    setInvitados(soloNumeros);
+    setError("");
+  };
+
+  // ==========================================
+  // ENVIAR POR WHATSAPP
+  // ==========================================
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,6 +83,17 @@ export default function ConfirmacionAsistencia() {
     if (!nombre.trim() || !asistencia) {
       setError(
         "Por favor, escribe tu nombre y selecciona si asistirás."
+      );
+      return;
+    }
+
+    // Validar cantidad únicamente si asistirá
+    if (
+      asistencia === "Sí asistiré" &&
+      (!invitados || !/^[1-9]\d*$/.test(invitados))
+    ) {
+      setError(
+        "Por favor, escribe una cantidad válida de personas."
       );
       return;
     }
@@ -62,13 +108,20 @@ export default function ConfirmacionAsistencia() {
       "",
       `👤 *Nombre:* ${nombre.trim()}`,
       `💌 *Asistencia:* ${asistencia}`,
+
+      ...(asistencia === "Sí asistiré"
+        ? [`👥 *Número de personas:* ${invitados}`]
+        : []),
+
       "",
       "💬 *Mensaje para los novios:*",
       mensaje.trim() || "Sin mensaje adicional",
     ].join("\n");
 
     const urlWhatsApp =
-      `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(textoWhatsApp)}`;
+      `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(
+        textoWhatsApp
+      )}`;
 
     window.location.href = urlWhatsApp;
   };
@@ -88,7 +141,9 @@ export default function ConfirmacionAsistencia() {
         md:py-32
       "
     >
-      {/* DECORACIONES DE FONDO */}
+      {/* ==================================
+          DECORACIONES DE FONDO
+      ================================== */}
 
       <div
         className="
@@ -127,7 +182,9 @@ export default function ConfirmacionAsistencia() {
           max-w-2xl
         "
       >
-        {/* ENCABEZADO */}
+        {/* ==================================
+            ENCABEZADO
+        ================================== */}
 
         <motion.div
           variants={fadeUp}
@@ -214,7 +271,9 @@ export default function ConfirmacionAsistencia() {
           </p>
         </motion.div>
 
-        {/* FORMULARIO */}
+        {/* ==================================
+            FORMULARIO
+        ================================== */}
 
         <motion.div
           variants={fadeUp}
@@ -256,7 +315,9 @@ export default function ConfirmacionAsistencia() {
             onSubmit={handleSubmit}
             className="space-y-7"
           >
-            {/* NOMBRE */}
+            {/* ==================================
+                NOMBRE
+            ================================== */}
 
             <div>
               <label
@@ -301,7 +362,9 @@ export default function ConfirmacionAsistencia() {
               />
             </div>
 
-            {/* ASISTENCIA */}
+            {/* ==================================
+                ASISTENCIA
+            ================================== */}
 
             <div>
               <p
@@ -316,11 +379,12 @@ export default function ConfirmacionAsistencia() {
               </p>
 
               <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                {/* SÍ ASISTIRÉ */}
 
                 <button
                   type="button"
                   onClick={() =>
-                    setAsistencia("Sí asistiré")
+                    seleccionarAsistencia("Sí asistiré")
                   }
                   aria-pressed={
                     asistencia === "Sí asistiré"
@@ -345,10 +409,12 @@ export default function ConfirmacionAsistencia() {
                   Sí asistiré
                 </button>
 
+                {/* NO ASISTIRÉ */}
+
                 <button
                   type="button"
                   onClick={() =>
-                    setAsistencia("No asistiré")
+                    seleccionarAsistencia("No asistiré")
                   }
                   aria-pressed={
                     asistencia === "No asistiré"
@@ -375,7 +441,122 @@ export default function ConfirmacionAsistencia() {
               </div>
             </div>
 
-            {/* MENSAJE */}
+            {/* ==================================
+                NÚMERO DE PERSONAS
+                SOLO SI ASISTIRÁ
+            ================================== */}
+
+            <AnimatePresence>
+              {asistencia === "Sí asistiré" && (
+                <motion.div
+                  key="cantidad-invitados"
+                  initial={{
+                    opacity: 0,
+                    height: 0,
+                    y: -10,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    height: "auto",
+                    y: 0,
+                  }}
+                  exit={{
+                    opacity: 0,
+                    height: 0,
+                    y: -10,
+                  }}
+                  transition={{
+                    duration: 0.35,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="overflow-hidden"
+                >
+                  <div
+                    className="
+                      rounded-xl
+                      border
+                      border-[#DFD3BF]
+                      bg-white/50
+                      p-5
+                    "
+                  >
+                    {/* TÍTULO */}
+
+                    <label
+                      htmlFor="cantidad-invitados"
+                      className="
+                        mb-3
+                        flex
+                        items-center
+                        gap-2
+                        text-sm
+                        font-medium
+                        text-[#242424]
+                      "
+                    >
+                      <Users
+                        size={18}
+                        strokeWidth={1.5}
+                        className="text-[#B89B5E]"
+                      />
+
+                      ¿Cuántas personas asistirán?
+                    </label>
+
+                    {/* CAMPO MANUAL */}
+
+                    <input
+                      id="cantidad-invitados"
+                      type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      placeholder="Escribe la cantidad de personas"
+                      value={invitados}
+                      onChange={cambiarInvitados}
+                      required={
+                        asistencia === "Sí asistiré"
+                      }
+                      className="
+                        w-full
+                        rounded-xl
+                        border
+                        border-[#DFD3BF]
+                        bg-white
+                        px-5
+                        py-4
+                        text-[#242424]
+                        placeholder:text-[#99918A]
+                        outline-none
+                        transition-colors
+                        duration-300
+                        focus:border-[#B89B5E]
+                        focus:ring-1
+                        focus:ring-[#B89B5E]/30
+                      "
+                    />
+
+                    {/* ACLARACIÓN */}
+
+                    <p
+                      className="
+                        mt-3
+                        text-xs
+                        leading-relaxed
+                        text-[#716B63]
+                      "
+                    >
+                      Escribe manualmente el número
+                      total de personas que asistirán,
+                      incluyéndote.
+                    </p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* ==================================
+                MENSAJE
+            ================================== */}
 
             <div>
               <label
@@ -431,7 +612,9 @@ export default function ConfirmacionAsistencia() {
               />
             </div>
 
-            {/* ERROR */}
+            {/* ==================================
+                ERROR
+            ================================== */}
 
             {error && (
               <p
@@ -446,7 +629,9 @@ export default function ConfirmacionAsistencia() {
               </p>
             )}
 
-            {/* BOTÓN WHATSAPP */}
+            {/* ==================================
+                BOTÓN WHATSAPP
+            ================================== */}
 
             <motion.button
               type="submit"
@@ -514,7 +699,9 @@ export default function ConfirmacionAsistencia() {
           />
         </motion.div>
 
-        {/* CIERRE DE LA INVITACIÓN */}
+        {/* ==================================
+            CIERRE DE LA INVITACIÓN
+        ================================== */}
 
         <motion.div
           variants={fadeUp}
@@ -572,17 +759,6 @@ export default function ConfirmacionAsistencia() {
 
             <div className="h-px w-10 bg-white/80" />
           </div>
-
-          <p
-            className="
-              mt-6
-              text-xs
-              tracking-[0.3em]
-              text-[#242424]
-            "
-          >
-            19 · 12 · 2026
-          </p>
         </motion.div>
       </div>
     </section>
