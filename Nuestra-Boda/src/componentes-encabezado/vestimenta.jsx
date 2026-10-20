@@ -108,8 +108,8 @@ const Vestimenta = () => {
           viewport={{ once: true }}
           className="
             relative
-            h-[300px]
-            min-h-[300px]
+            h-[500px]
+            min-h-[500px]
             overflow-hidden
             sm:h-[420px]
             md:h-[480px]
