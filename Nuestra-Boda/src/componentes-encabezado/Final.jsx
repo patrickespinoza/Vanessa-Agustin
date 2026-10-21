@@ -7,17 +7,54 @@ import { motion } from "framer-motion";
 // ==========================================
 
 const configuracion = {
-  imagen: "/final.JPG",
+  imagen: "/Final.png",
 
+  // ========================================
   // POSICIÓN DE LA FOTOGRAFÍA
-  // Primer valor: horizontal
-  // Segundo valor: vertical
+  // ========================================
 
-  posicionDesktop: "center 50%",
+  posicionDesktop: "center 65%",
   posicionMobile: "60% 50%",
 
-  // INICIALES
+  // ========================================
+  // POSICIÓN DEL TEXTO
+  // ========================================
+
+  // Distancia desde el borde inferior
+  // Entre menor el número, más abajo estará.
+
+  textoBottomDesktop: "20px",
+  textoBottomMobile: "12px",
+
+  // ========================================
+  // CONTENIDO
+  // ========================================
+
   iniciales: "V & A",
+
+  versiculo:
+    "A dondequiera que tú fueres, iré yo, y dondequiera que vivieres, viviré",
+
+  cita: "Rut 1:16",
+};
+
+// ==========================================
+// ANIMACIONES
+// ==========================================
+
+const fadeUp = {
+  hidden: {
+    opacity: 0,
+    y: 20,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1.2,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
 };
 
 // ==========================================
@@ -30,9 +67,9 @@ export default function ImagenFinal() {
       id="imagen-final"
       className="
         relative
-        w-full
         h-[100svh]
         min-h-[500px]
+        w-full
         overflow-hidden
         bg-black
       "
@@ -41,54 +78,38 @@ export default function ImagenFinal() {
           FOTOGRAFÍA
       ================================== */}
 
-      <picture className="absolute inset-0 block h-full w-full">
+      <img
+        src={configuracion.imagen}
+        alt="Vanessa y Agustin"
+        className="
+          imagen-final
+          absolute
+          inset-0
+          h-full
+          w-full
+          object-cover
+        "
+        style={{
+          "--posicion-desktop":
+            configuracion.posicionDesktop,
 
-        <source
-          media="(max-width: 767px)"
-          srcSet={configuracion.imagen}
-        />
-
-        <img
-          src={configuracion.imagen}
-          alt="Vanessa y Agustin"
-          className="
-            imagen-final
-            absolute
-            inset-0
-            h-full
-            w-full
-            object-cover
-          "
-          style={{
-            "--posicion-desktop":
-              configuracion.posicionDesktop,
-            "--posicion-mobile":
-              configuracion.posicionMobile,
-          }}
-        />
-      </picture>
+          "--posicion-mobile":
+            configuracion.posicionMobile,
+        }}
+      />
 
       {/* ==================================
-          INICIALES INFERIORES
+          TEXTO INFERIOR
       ================================== */}
 
       <motion.div
-        initial={{
-          opacity: 0,
-          y: 25,
-        }}
-        whileInView={{
-          opacity: 1,
-          y: 0,
-        }}
-        transition={{
-          duration: 1.2,
-          ease: [0.22, 1, 0.36, 1],
-        }}
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
         viewport={{ once: true }}
         className="
+          texto-final
           absolute
-          bottom-12
           left-0
           z-10
           flex
@@ -98,49 +119,67 @@ export default function ImagenFinal() {
           justify-center
           px-5
           text-center
-          sm:bottom-16
-          md:bottom-20
+          sm:px-8
         "
+        style={{
+          "--bottom-desktop":
+            configuracion.textoBottomDesktop,
+
+          "--bottom-mobile":
+            configuracion.textoBottomMobile,
+        }}
       >
-        {/* LÍNEA DECORATIVA */}
+        
 
-        <div
+
+        {/* ==================================
+            VERSÍCULO
+        ================================== */}
+
+        <p
           className="
-            mb-5
-            h-px
-            w-16
-            bg-white/80
-          "
-        />
-
-        {/* INICIALES */}
-
-        <h2
-          className="
+            max-w-[340px]
             font-serif
-            text-5xl
+            text-lg
             font-normal
             italic
-            tracking-[0.08em]
+            leading-relaxed
             text-white
-            drop-shadow-[0_3px_12px_rgba(0,0,0,0.5)]
-            sm:text-6xl
-            md:text-7xl
+            sm:max-w-lg
+            sm:text-lg
+            md:max-w-2xl
+            md:text-xl
           "
+          style={{
+            textShadow:
+              "0 2px 7px rgba(0,0,0,0.95), 0 4px 18px rgba(0,0,0,0.75)",
+          }}
         >
-          {configuracion.iniciales}
-        </h2>
+          «{configuracion.versiculo}».
+        </p>
 
-        {/* DETALLE INFERIOR */}
+        {/* ==================================
+            CITA BÍBLICA
+        ================================== */}
 
-        <div
+        <p
           className="
-            mt-5
-            h-px
-            w-16
-            bg-white/80
+            mt-3
+            text-[11px]
+            font-medium
+            uppercase
+            tracking-[0.25em]
+            text-white
+            sm:mt-4
+            sm:text-xs
           "
-        />
+          style={{
+            textShadow:
+              "0 2px 8px rgba(0,0,0,0.9)",
+          }}
+        >
+          {configuracion.cita}
+        </p>
       </motion.div>
 
       {/* ==================================
@@ -153,9 +192,17 @@ export default function ImagenFinal() {
             object-position: var(--posicion-desktop);
           }
 
+          .texto-final {
+            bottom: var(--bottom-desktop);
+          }
+
           @media (max-width: 767px) {
             .imagen-final {
               object-position: var(--posicion-mobile);
+            }
+
+            .texto-final {
+              bottom: var(--bottom-mobile);
             }
           }
         `}
